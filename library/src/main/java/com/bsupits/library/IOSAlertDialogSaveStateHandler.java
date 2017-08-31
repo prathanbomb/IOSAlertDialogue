@@ -9,23 +9,23 @@ import java.lang.ref.WeakReference;
  * Created by prathanbomb on 1/14/2017 AD.
  */
 
-public class IOSAlertDialogueSaveStateHandler {
+public class IOSAlertDialogSaveStateHandler {
     private static final String KEY_DIALOG_ID = "id";
 
-    private SparseArray<WeakReference<IOSAlertDialogue<?>>> handledDialogs;
+    private SparseArray<WeakReference<IOSAlertDialog<?>>> handledDialogs;
 
-    public IOSAlertDialogueSaveStateHandler() {
+    public IOSAlertDialogSaveStateHandler() {
         handledDialogs = new SparseArray<>();
     }
 
     public void saveInstanceState(Bundle outState) {
         for (int index = handledDialogs.size() - 1; index >= 0; index--) {
-            WeakReference<IOSAlertDialogue<?>> dialogRef = handledDialogs.valueAt(index);
+            WeakReference<IOSAlertDialog<?>> dialogRef = handledDialogs.valueAt(index);
             if (dialogRef.get() == null) {
                 handledDialogs.remove(index);
                 continue;
             }
-            IOSAlertDialogue<?> dialog = dialogRef.get();
+            IOSAlertDialog<?> dialog = dialogRef.get();
             if (dialog.isShowing()) {
                 dialog.onSaveInstanceState(outState);
                 outState.putInt(KEY_DIALOG_ID, handledDialogs.keyAt(index));
@@ -34,8 +34,8 @@ public class IOSAlertDialogueSaveStateHandler {
         }
     }
 
-    void handleDialogStateSave(int id, IOSAlertDialogue<?> dialog) {
-        handledDialogs.put(id, new WeakReference<IOSAlertDialogue<?>>(dialog));
+    void handleDialogStateSave(int id, IOSAlertDialog<?> dialog) {
+        handledDialogs.put(id, new WeakReference<IOSAlertDialog<?>>(dialog));
     }
 
     public static boolean wasDialogOnScreen(Bundle savedInstanceState) {

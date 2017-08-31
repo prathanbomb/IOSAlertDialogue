@@ -12,7 +12,7 @@ import static android.view.View.VISIBLE;
  * Created by prathanbomb on 1/14/2017 AD.
  */
 
-public class IOSAlertDialogueSingleButton extends IOSAlertDialogue<IOSAlertDialogueSingleButton> {
+public class IOSAlertDialogSingleButton extends IOSAlertDialog<IOSAlertDialogSingleButton> {
 
     public static final int NEUTRAL_BUTTON = R.id.btn_neutral_alert_dialog;
 
@@ -22,30 +22,30 @@ public class IOSAlertDialogueSingleButton extends IOSAlertDialogue<IOSAlertDialo
         neutralButton = findView(NEUTRAL_BUTTON);
     }
 
-    public IOSAlertDialogueSingleButton(Context context) {
+    public IOSAlertDialogSingleButton(Context context) {
         super(context);
     }
 
-    public IOSAlertDialogueSingleButton(Context context, int theme) {
+    public IOSAlertDialogSingleButton(Context context, int theme) {
         super(context, theme);
     }
 
-    public IOSAlertDialogueSingleButton setNeutralButton(@StringRes int text, View.OnClickListener listener) {
+    public IOSAlertDialogSingleButton setNeutralButton(@StringRes int text, View.OnClickListener listener) {
         return setNeutralButton(string(text), listener);
     }
 
-    public IOSAlertDialogueSingleButton setNeutralButton(String text, @Nullable View.OnClickListener listener) {
+    public IOSAlertDialogSingleButton setNeutralButton(String text, @Nullable View.OnClickListener listener) {
         neutralButton.setVisibility(VISIBLE);
         neutralButton.setText(text);
         neutralButton.setOnClickListener(new DismissAfterClick(listener));
         return this;
     }
 
-    public IOSAlertDialogueSingleButton setOnButtonClickListener(View.OnClickListener listener) {
+    public IOSAlertDialogSingleButton setOnButtonClickListener(View.OnClickListener listener) {
         return setOnButtonClickListener(true ,listener);
     }
 
-    public IOSAlertDialogueSingleButton setOnButtonClickListener(boolean closeOnClick, View.OnClickListener listener) {
+    public IOSAlertDialogSingleButton setOnButtonClickListener(boolean closeOnClick, View.OnClickListener listener) {
         View.OnClickListener clickHandler = closeOnClick ?
                 new DismissAfterClick(listener) :
                 listener;

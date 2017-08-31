@@ -13,7 +13,7 @@ import static android.view.View.VISIBLE;
  * Created by prathanbomb on 1/15/2017 AD.
  */
 
-public class IOSAlertDialogueDoubleButton extends IOSAlertDialogue<IOSAlertDialogueDoubleButton> {
+public class IOSAlertDialogDoubleButton extends IOSAlertDialog<IOSAlertDialogDoubleButton> {
 
     public static final int POSITIVE_BUTTON = R.id.btn_pos_alert_dialog;
     public static final int NEGATIVE_BUTTON = R.id.btn_neg_alert_dialog;
@@ -26,23 +26,23 @@ public class IOSAlertDialogueDoubleButton extends IOSAlertDialogue<IOSAlertDialo
         negativeButton = findView(NEGATIVE_BUTTON);
     }
 
-    public IOSAlertDialogueDoubleButton(Context context) {
+    public IOSAlertDialogDoubleButton(Context context) {
         super(context);
     }
 
-    public IOSAlertDialogueDoubleButton(Context context, int theme) {
+    public IOSAlertDialogDoubleButton(Context context, int theme) {
         super(context, theme);
     }
 
-    public IOSAlertDialogueDoubleButton setPositiveButton(@StringRes int text, boolean textBold, boolean redButton, View.OnClickListener listener) {
+    public IOSAlertDialogDoubleButton setPositiveButton(@StringRes int text, boolean textBold, boolean redButton, View.OnClickListener listener) {
         return setPositiveButton(string(text), textBold, redButton, listener);
     }
 
-    public IOSAlertDialogueDoubleButton setNegativeButton(@StringRes int text, boolean textBold, boolean redButton, View.OnClickListener listener) {
+    public IOSAlertDialogDoubleButton setNegativeButton(@StringRes int text, boolean textBold, boolean redButton, View.OnClickListener listener) {
         return setNegativeButton(string(text), textBold, redButton, listener);
     }
 
-    public IOSAlertDialogueDoubleButton setPositiveButton(String text, boolean textBold, boolean redButton, @Nullable View.OnClickListener listener) {
+    public IOSAlertDialogDoubleButton setPositiveButton(String text, boolean textBold, boolean redButton, @Nullable View.OnClickListener listener) {
         positiveButton.setVisibility(VISIBLE);
         positiveButton.setText(text);
         if (textBold) {
@@ -55,7 +55,7 @@ public class IOSAlertDialogueDoubleButton extends IOSAlertDialogue<IOSAlertDialo
         return this;
     }
 
-    public IOSAlertDialogueDoubleButton setNegativeButton(String text, boolean textBold, boolean redButton, @Nullable View.OnClickListener listener) {
+    public IOSAlertDialogDoubleButton setNegativeButton(String text, boolean textBold, boolean redButton, @Nullable View.OnClickListener listener) {
         negativeButton.setVisibility(VISIBLE);
         negativeButton.setText(text);
         if (textBold) {
@@ -68,13 +68,13 @@ public class IOSAlertDialogueDoubleButton extends IOSAlertDialogue<IOSAlertDialo
         return this;
     }
 
-    public IOSAlertDialogueDoubleButton setOnButtonClickListener(View.OnClickListener listener) {
+    public IOSAlertDialogDoubleButton setOnButtonClickListener(View.OnClickListener listener) {
         return setOnButtonClickListener(true ,listener);
     }
 
-    public IOSAlertDialogueDoubleButton setOnButtonClickListener(boolean closeOnClick, View.OnClickListener listener) {
+    public IOSAlertDialogDoubleButton setOnButtonClickListener(boolean closeOnClick, View.OnClickListener listener) {
         View.OnClickListener clickHandler = closeOnClick ?
-                new IOSAlertDialogue.DismissAfterClick(listener) :
+                new IOSAlertDialog.DismissAfterClick(listener) :
                 listener;
         positiveButton.setOnClickListener(clickHandler);
         negativeButton.setOnClickListener(clickHandler);

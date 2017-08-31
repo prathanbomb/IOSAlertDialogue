@@ -16,7 +16,7 @@ import android.widget.TextView;
  */
 
 @SuppressWarnings("unchecked")
-public abstract class IOSAlertDialogue<T extends IOSAlertDialogue> {
+public abstract class IOSAlertDialog<T extends IOSAlertDialog> {
 
     private static final String KEY_SAVED_STATE_TOKEN = "key_saved_state_token";
 
@@ -26,11 +26,11 @@ public abstract class IOSAlertDialogue<T extends IOSAlertDialogue> {
     private TextView titleView;
     private TextView contentView;
 
-    public IOSAlertDialogue(Context context) {
+    public IOSAlertDialog(Context context) {
         init(new Dialog(context));
     }
 
-    public IOSAlertDialogue(Context context, int theme) {
+    public IOSAlertDialog(Context context, int theme) {
         init(new Dialog(context, theme));
     }
 
@@ -74,7 +74,7 @@ public abstract class IOSAlertDialogue<T extends IOSAlertDialogue> {
      * your dialog in onRestoreInstanceState. Static methods wasDialogOnScreen and getDialogId will
      * help you in this.
      */
-    public T setInstanceStateHandler(int id, IOSAlertDialogueSaveStateHandler handler) {
+    public T setInstanceStateHandler(int id, IOSAlertDialogSaveStateHandler handler) {
         handler.handleDialogStateSave(id, this);
         return (T) this;
     }
