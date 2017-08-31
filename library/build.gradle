@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'kotlin-android'
 
 android {
@@ -20,71 +19,31 @@ android {
     }
 }
 
-apply plugin: 'com.jfrog.bintray'
-
-group = 'th.co.digio'
-version = '0.1.0'
-
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            name 'IOSAlertDialog'
-            description ''
-            url 'https://github.com/prathanbomb/IOSAlertDialogue'
-            inceptionYear '2015'
-
-            packaging 'aar'
-            groupId 'th.co.digio'
-            artifactId 'iosalertdialog'
-            version '0.1.0'
-
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }
-            scm {
-                connection 'https://github.com/prathanbomb/IOSAlertDialogue.git'
-                url 'https://github.com/prathanbomb/IOSAlertDialogue'
-            }
-            developers {
-                developer {
-                    name 'prathanbomb'
-                }
-            }
-        }
-    }
-}
-
-bintray {
-    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'iosalertdialog'
-        userOrg = 'digio-thailand'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/prathanbomb/IOSAlertDialogue.git'
-        publicDownloadNumbers = true
-        version {
-            name = '0.1.0'
-            vcsTag = '0.1.0'
-            desc = 'Change android alert dialog to iOS\'s alert dialog'
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = project.hasProperty('bintrayGpgPassword') ? project.property('bintrayGpgPassword') : System.getenv('BINTRAY_GPG_PASSWORD')
-                //Optional. The passphrase for GPG signing'
-            }
-        }
-    }
-}
-
 ext {
     googleSupportVersion = '26.0.1'
+
+    //For bintray and jcenter distribution
+    bintrayRepo = 'maven'
+    bintrayName = 'iosalertdialog'
+
+    publishedGroupId = 'th.co.digio'
+    libraryName = 'iOSAlertDialog'
+    artifact = 'iosalertdialog' //This artifact name should be the same with library module name
+
+    libraryDescription = 'Simple, clean and short description'
+
+    siteUrl = 'https://github.com/prathanbomb/IOSAlertDialog'
+    gitUrl = 'https://github.com/prathanbomb/IOSAlertDialog.git'
+
+    libraryVersion = '1.0.1'
+
+    developerId = 'prathanbomb'
+    developerName = 'Supitsara Prathan'
+    developerEmail = 'prathanbomb@gmail.com'
+    organization = 'prathanbomb' // if you push to organization's repository.
+    licenseName = 'The Apache Software License, Version 2.0'  //Example for license
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
 dependencies {
@@ -102,6 +61,5 @@ tasks.withType(Javadoc) {
     enabled = false
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.4'
-}
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/install.gradle'
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/bintray.gradle'

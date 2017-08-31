@@ -3,7 +3,7 @@ package com.bsupits.iosalertdialogue;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.bsupits.library.IOSAlertDialogueDoubleButton;
+import com.bsupits.library.IOSAlertDialogDoubleButton;
 
 public class MainActivity extends Activity {
 
@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
     }
 
     private void showAlertDialog() {
-        new IOSAlertDialogueDoubleButton(this)
+        new IOSAlertDialogDoubleButton(this)
                 .setTitle("Title")
                 .setMessage("message")
                 .setNegativeButton("Delete", false, true, null)
