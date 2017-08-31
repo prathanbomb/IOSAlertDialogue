@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
@@ -7,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -17,15 +19,89 @@ android {
         }
     }
 }
+
+apply plugin: 'com.jfrog.bintray'
+
+group = 'th.co.digio'
+version = '0.1.0'
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'IOSAlertDialog'
+            description ''
+            url 'https://github.com/prathanbomb/IOSAlertDialogue'
+            inceptionYear '2015'
+
+            packaging 'aar'
+            groupId 'th.co.digio'
+            artifactId 'iosalertdialog'
+            version '0.1.0'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                connection 'https://github.com/prathanbomb/IOSAlertDialogue.git'
+                url 'https://github.com/prathanbomb/IOSAlertDialogue'
+            }
+            developers {
+                developer {
+                    name 'prathanbomb'
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'iosalertdialog'
+        userOrg = 'digio-thailand'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/prathanbomb/IOSAlertDialogue.git'
+        publicDownloadNumbers = true
+        version {
+            name = '0.1.0'
+            vcsTag = '0.1.0'
+            desc = 'Change android alert dialog to iOS\'s alert dialog'
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = project.hasProperty('bintrayGpgPassword') ? project.property('bintrayGpgPassword') : System.getenv('BINTRAY_GPG_PASSWORD')
+                //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
+}
+
 ext {
     googleSupportVersion = '26.0.1'
 }
+
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "com.android.support:appcompat-v7:$googleSupportVersion"
     implementation "com.android.support:recyclerview-v7:$googleSupportVersion"
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+
+tasks.withType(Javadoc) {
+    enabled = false
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
 }
